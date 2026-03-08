@@ -5,11 +5,20 @@ import tensorflow as tf
 from PIL import Image
 import plotly.express as px
 import pandas as pd
+import os
+import gdown
 
 # ── LOAD RETINAL MODEL ────────────────────────────────────
 @st.cache_resource
 def load_retinal_model():
-    model = tf.keras.models.load_model('models/retinal_model_full.h5')
+    model_path = 'models/retinal_model_full.h5'
+    if not os.path.exists(model_path):
+        os.makedirs('models', exist_ok=True)
+        gdown.download(
+            'https://drive.google.com/uc?id=1BCry23kfdsZlsbjKWMPjhEYY4YeCWPAx',
+            model_path, quiet=False
+        )
+    model = tf.keras.models.load_model(model_path)
     return model
 
 def preprocess_retinal_image(img_array, target_size=(128, 128)):

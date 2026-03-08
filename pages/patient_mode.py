@@ -5,12 +5,19 @@ import tensorflow as tf
 from PIL import Image
 import tempfile
 import os
+import gdown
 
 # ── LOAD SKIN MODEL ───────────────────────────────────────
-# Cache the model so it doesn't reload on every interaction
 @st.cache_resource
 def load_skin_model():
-    model = tf.keras.models.load_model('models/skin_model_best.h5')
+    model_path = 'models/skin_model_best.h5'
+    if not os.path.exists(model_path):
+        os.makedirs('models', exist_ok=True)
+        gdown.download(
+            'https://drive.google.com/uc?id=1MpF6JHfGsx03p9lubLvbE_Db730Y0fqP',
+            model_path, quiet=False
+        )
+    model = tf.keras.models.load_model(model_path)
     return model
 
 def preprocess_skin_image(img_array, target_size=(128, 128)):
