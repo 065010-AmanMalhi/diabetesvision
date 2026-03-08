@@ -168,4 +168,4 @@ DiabetesVision is a screening tool intended to assist — not replace — medica
 ## 👨‍💻 Author
 
 **Aman Malhi**  
-Built as part of a deep learning project series covering CNN and RNN architectures.
+Built as part of a deep learning project series covering CNN architecture.
